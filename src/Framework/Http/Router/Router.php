@@ -20,23 +20,8 @@ class Router
     public function match(ServerRequestInterface $request): Result
     {
         foreach ($this->routes->getRoutes() as $route) {
-            if ($route->method !== $request->getMethod()) {
-                continue;
-            }
-
-            $pattern = preg_replace_callback('~:([^\/]+)~', function ($matches) use ($route) {
-                $argument = $matches[1];
-                $replace = $route->tokens[$argument] ?? '[^\/]+';
-                return "(?P<{$argument}>{$replace})";
-            }, $route->pattern);
-
-
-            if (preg_match('~' . $pattern . '~', $request->getUri()->getPath(), $matches)) {
-                return new Result(
-                    $route->name,
-                    $route->handler,
-                    array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY)
-                );
+            if ($result = $route->match($request)) {
+                return $result;
             }
         }
 
@@ -45,22 +30,10 @@ class Router
 
     public function generateUri(string $name, array $params = []): string
     {
-        $arguments = array_filter($params);
         foreach ($this->routes->getRoutes() as $route) {
-            if ($route->name !== $name) {
-                continue;
+            if ($url = $route->generateUri($name, array_filter($params))) {
+                return $url;
             }
-
-            $url = preg_replace_callback('~:([^\/]+)~', function ($matches) use ($arguments) {
-                $argument = $matches[1];
-                if (!array_key_exists($argument, $arguments)) {
-                    throw new \InvalidArgumentException();
-                }
-
-                return $arguments[$argument];
-            }, $route->pattern);
-
-            return $url;
         }
 
         throw new RouteNotFoundException($name, $params);
