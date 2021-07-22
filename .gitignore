@@ -1,2 +1,6 @@
 /vendor
 /phpunit.xml
+/.vscode
+/docker
+docker-compose.yml
+.phpunit.result.cache

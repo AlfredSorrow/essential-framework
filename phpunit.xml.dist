@@ -14,8 +14,8 @@
 
     <filter>
         <whitelist>
-        <directory suffix=".php">src/</directory>
-        <directory suffix=".php">vendor/</directory>
+            <directory suffix=".php">src/</directory>
+            <directory suffix=".php">vendor/</directory>
         </whitelist>
     </filter>
 </phpunit>

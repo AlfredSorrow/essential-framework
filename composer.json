@@ -6,19 +6,20 @@
             "email": "kurtsorrow@gmail.com"
         }
     ],
-    "config" : {
+    "config": {
         "sort-packages": true
     },
-    "require:" : {
+    "require:": {
         "php": ">=7.4"
     },
     "autoload": {
         "psr-4": {
-            "Framework\\": "src/",
+            "Framework\\": "src/Framework",
             "Tests\\": "tests/"
         }
     },
     "require-dev": {
+        "kint-php/kint": "^3.3",
         "phpunit/phpunit": "^9.1",
         "roave/security-advisories": "dev-master"
     },
