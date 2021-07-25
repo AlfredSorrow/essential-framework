@@ -1,18 +1,27 @@
 <?php
 
-namespace Framework\Http\Router;
+namespace Framework\Http\Router\Route;
 
 use Psr\Http\Message\ServerRequestInterface;
-use Framework\Http\Router\Exception\RouteNotFoundException;
+use Framework\Http\Router\Result;
 
-class Route
+class RegexpRoute implements Route
 {
-    public string $method;
-    public string $name;
-    public string $pattern;
-    public $handler;
-    public array $tokens;
+    private string $method;
+    private string $name;
+    private string $pattern;
+    private $handler;
+    private array $tokens;
 
+    /**
+     * RegexpRoute
+     *
+     * @param string $method
+     * @param string $name
+     * @param string $pattern
+     * @param callable $handler
+     * @param array $tokens
+     */
     public function __construct(string $method, string $name, string $pattern, callable $handler, array $tokens = [])
     {
         $this->method = $method;
@@ -22,6 +31,9 @@ class Route
         $this->tokens = $tokens;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function match(ServerRequestInterface $request): ?Result
     {
 
@@ -47,6 +59,9 @@ class Route
         return null;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function generateUri(string $name, array $arguments = []): string
     {
         if ($this->name !== $name) {
