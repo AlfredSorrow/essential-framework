@@ -30,6 +30,24 @@ class RouterTest extends TestCase
         self::assertEquals($handlerPost, $result->getHandler());
     }
 
+    public function testCorrectMatch()
+    {
+        $routes = new RouteCollection();
+        $routes->get($home = 'home', '/', $homeHandler = $this->createHandler());
+        $routes->get($blog = 'blog', '/blog', $blogHandler = $this->createHandler());
+
+        $router = new Router($routes);
+
+        $result = $router->match($this->buildRequest('GET', '/'));
+        self::assertEquals($home, $result->getName());
+        self::assertEquals($homeHandler, $result->getHandler());
+
+
+        $result = $router->match($this->buildRequest('GET', '/blog'));
+        self::assertEquals($blog, $result->getName());
+        self::assertEquals($blogHandler, $result->getHandler());
+    }
+
     public function testMissingMethod()
     {
         $routes = new RouteCollection();

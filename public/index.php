@@ -20,7 +20,19 @@ $request = ServerRequestFactory::createFromGlobals();
 $patch = $request->getUri()->getPath();
 
 $routes = new RouteCollection();
-$routes->get('home', '/', fn () => (new Response())->withBody((new StreamFactory())->createStream("Hello, Guest!")));
+$routes->get('home', '/', function (ServerRequestInterface $request) {
+    $name = $request->getQueryParams()['name'] ?? 'Guest';
+    $message = "Hello, {$name}!";
+    return (new Response())->withBody((new StreamFactory())->createStream($message));
+});
+
+$routes->get('about', '/about', function () {
+    $message = "About page";
+    return (new Response())->withBody((new StreamFactory())->createStream($message));
+});
+
+
+
 $router = new Router($routes);
 
 $result = $router->match($request);
