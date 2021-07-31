@@ -6,13 +6,13 @@ class Result
 {
 
     private string $name;
-    private $handler;
+    private array $handlers;
     private array $attributes;
 
-    public function __construct(string $name, callable $handler, array $attributes)
+    public function __construct(string $name, array $handlers, array $attributes)
     {
         $this->name = $name;
-        $this->handler = $handler;
+        $this->handlers = $handlers;
         $this->attributes = $attributes;
     }
 
@@ -21,9 +21,9 @@ class Result
         return $this->name;
     }
 
-    public function getHandler(): callable
+    public function getHandlers(): array
     {
-        return $this->handler;
+        return $this->handlers;
     }
 
     public function getAttributes(): array

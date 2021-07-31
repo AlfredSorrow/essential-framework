@@ -24,11 +24,11 @@ class RouterTest extends TestCase
 
         $result = $router->match($this->buildRequest('GET', '/blog'));
         self::assertEquals($nameGet, $result->getName());
-        self::assertEquals($handlerGet, $result->getHandler());
+        self::assertEquals($handlerGet, $result->getHandlers());
 
         $result = $router->match($this->buildRequest('POST', '/blog'));
         self::assertEquals($namePost, $result->getName());
-        self::assertEquals($handlerPost, $result->getHandler());
+        self::assertEquals($handlerPost, $result->getHandlers());
     }
 
     public function testCorrectMatch()
@@ -42,16 +42,16 @@ class RouterTest extends TestCase
 
         $result = $router->match($this->buildRequest('GET', '/'));
         self::assertEquals($home, $result->getName());
-        self::assertEquals($homeHandler, $result->getHandler());
+        self::assertEquals($homeHandler, $result->getHandlers());
 
 
         $result = $router->match($this->buildRequest('GET', '/blog'));
         self::assertEquals($blog, $result->getName());
-        self::assertEquals($blogHandler, $result->getHandler());
+        self::assertEquals($blogHandler, $result->getHandlers());
 
         $result = $router->match($this->buildRequest('GET', '/blog/123/'));
         self::assertEquals($blogShow, $result->getName());
-        self::assertEquals($blogShowHandler, $result->getHandler());
+        self::assertEquals($blogShowHandler, $result->getHandlers());
     }
 
     public function testMissingMethod()
@@ -125,8 +125,8 @@ class RouterTest extends TestCase
         return (new ServerRequestFactory())->createServerRequest($method, $uri);
     }
 
-    private function createHandler(): callable
+    private function createHandler(): array
     {
-        return fn () => '';
+        return [fn () => ''];
     }
 }

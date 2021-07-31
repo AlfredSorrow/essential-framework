@@ -12,7 +12,8 @@
     "autoload": {
         "psr-4": {
             "Framework\\": "src/Framework",
-            "Tests\\": "tests/"
+            "Tests\\": "tests/",
+            "App\\": "src/App"
         },
         "files": [
             "./src/Framework/Helper/Strings.php"

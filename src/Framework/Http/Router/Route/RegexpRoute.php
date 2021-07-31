@@ -10,7 +10,7 @@ class RegexpRoute implements Route
     private string $method;
     private string $name;
     private string $pattern;
-    private $handler;
+    private array $handlers;
     private array $tokens;
 
     /**
@@ -19,15 +19,15 @@ class RegexpRoute implements Route
      * @param string $method
      * @param string $name
      * @param string $pattern
-     * @param callable $handler
+     * @param array $handler
      * @param array $tokens
      */
-    public function __construct(string $method, string $name, string $pattern, callable $handler, array $tokens = [])
+    public function __construct(string $method, string $name, string $pattern, array $handlers, array $tokens = [])
     {
         $this->method = $method;
         $this->name = $name;
         $this->pattern = $pattern;
-        $this->handler = $handler;
+        $this->handler = $handlers;
         $this->tokens = $tokens;
     }
 

@@ -24,13 +24,13 @@ class RouteCollection
      *
      * @param string $name
      * @param string $pattern
-     * @param callable $handler
+     * @param callable[]|callable $handler
      * @param array $tokens
      * @return void
      */
-    public function get(string $name, string $pattern, callable $handler, array $tokens = []): void
+    public function get(string $name, string $pattern, $handlers, array $tokens = []): void
     {
-        $this->addRoute(new RegexpRoute('GET', $name, $pattern, $handler, $tokens));
+        $this->addRoute(new RegexpRoute('GET', $name, $pattern, (array)$handlers, $tokens));
     }
 
     /**
@@ -38,13 +38,13 @@ class RouteCollection
      *
      * @param string $name
      * @param string $pattern
-     * @param callable $handler
+     * @param callable[]|callable $handler
      * @param array $tokens
      * @return void
      */
-    public function post(string $name, string $pattern, callable $handler, array $tokens = []): void
+    public function post(string $name, string $pattern, $handlers, array $tokens = []): void
     {
-        $this->addRoute(new RegexpRoute('POST', $name, $pattern, $handler, $tokens));
+        $this->addRoute(new RegexpRoute('POST', $name, $pattern, (array)$handlers, $tokens));
     }
 
     /**
@@ -52,15 +52,15 @@ class RouteCollection
      *
      * @param string $name
      * @param string $pattern
-     * @param callable $handler
+     * @param callable[]|callable $handler
      * @param array $tokens
      * @param array $methods
      * @return void
      */
-    public function any(string $name, string $pattern, callable $handler, array $tokens = [], $methods = ['GET', 'POST', 'PATCH', 'PUT', 'DELETE']): void
+    public function any(string $name, string $pattern, $handlers, array $tokens = [], $methods = ['GET', 'POST', 'PATCH', 'PUT', 'DELETE']): void
     {
         foreach ($methods as $method) {
-            $this->addRoute(new RegexpRoute($method, $name, $pattern, $handler, $tokens));
+            $this->addRoute(new RegexpRoute($method, $name, $pattern, (array)$handlers, $tokens));
         }
     }
 
