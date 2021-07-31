@@ -1,6 +1,6 @@
 <?php
 
-namespace Test\Framework\Http;
+namespace Test\Framework\Http\Router;
 
 use PHPUnit\Framework\TestCase;
 use Framework\Http\Router\SimpleRouter;
