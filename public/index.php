@@ -4,6 +4,7 @@ use App\Controller\About;
 use App\Controller\Cabinet;
 use App\Controller\Index;
 use App\Controller\Post;
+use App\Middleware\Authorization;
 use Slim\Psr7\Response;
 use Slim\Psr7\Factory\ServerRequestFactory;
 use Slim\Psr7\Factory\StreamFactory;
@@ -49,13 +50,15 @@ $routes->get(
     Handler::method(Post::class, 'show'),
 );
 
+$users = [
+    'admin' => '1'
+];
 $routes->get(
     'cabinet',
     '/cabinet',
-    [
-        Handler::middleware(Authorization::class),
-        Handler::method(Cabinet::class, 'main')
-    ]
+    function (ServerRequestInterface $request) use ($users) {
+        return (new Authorization($users))($request, Handler::method(Cabinet::class, 'main'));
+    }
 );
 
 
@@ -65,7 +68,7 @@ $result = $router->match($request);
 foreach ($result->getAttributes() as $name => $value) {
     $request = $request->withAttribute($name, $value);
 }
-$response = $result->getHandler()($request);
+$response = $result->getHandlers()[0]($request);
 
 ### postprocessing
 $response = $response->withHeader('ASS', 'SAS');

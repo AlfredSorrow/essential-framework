@@ -4,7 +4,7 @@ namespace Framework\Http\Router;
 
 use App\Controller\Controller;
 use InvalidArgumentException;
-use Middleware;
+use App\Middleware\Middleware;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
@@ -59,7 +59,7 @@ final class Handler
      */
     private static function validateArguments(string $class, string $interface, string $method = null): void
     {
-        if (!is_a($class, $interface)) {
+        if (!is_a($class, $interface, true)) {
             throw new InvalidArgumentException("Class {$class} must implement \"{$interface}\"");
         }
 
