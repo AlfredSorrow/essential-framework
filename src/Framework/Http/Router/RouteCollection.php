@@ -6,7 +6,7 @@ use Framework\Http\Router\Route\RegexpRoute;
 
 class RouteCollection
 {
-    private array $routes;
+    private array $routes = [];
 
     /**
      * Adding custom routes

@@ -16,7 +16,10 @@
         "psr-4": {
             "Framework\\": "src/Framework",
             "Tests\\": "tests/"
-        }
+        },
+        "files": [
+            "./src/Framework/Helpers/Strings.php"
+        ]
     },
     "require-dev": {
         "kint-php/kint": "^3.3",
