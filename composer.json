@@ -15,13 +15,16 @@
             "Tests\\": "tests/"
         },
         "files": [
-            "./src/Framework/Helpers/Strings.php"
+            "./src/Framework/Helper/Strings.php"
         ]
     },
     "require-dev": {
         "kint-php/kint": "^3.3",
         "phpunit/phpunit": "^9.1",
         "roave/security-advisories": "dev-master"
+    },
+    "scripts": {
+        "test": "phpunit --colors=always"
     },
     "require": {
         "php": ">=7.4",

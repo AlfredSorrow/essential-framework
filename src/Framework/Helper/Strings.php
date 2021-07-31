@@ -1,6 +1,6 @@
 <?php
 
-namespace Framework\Helpers;
+namespace Framework\Helper;
 
 function jsonForPrint($json)
 {

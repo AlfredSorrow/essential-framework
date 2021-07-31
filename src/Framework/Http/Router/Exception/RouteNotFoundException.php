@@ -2,7 +2,7 @@
 
 namespace Framework\Http\Router\Exception;
 
-use function Framework\Helpers\jsonForPrint;
+use function Framework\Helper\jsonForPrint;
 
 class RouteNotFoundException extends \LogicException
 {
